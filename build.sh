@@ -3,7 +3,7 @@
 set -x
 
 # Find all challenge directories
-challenges=($(find . -maxdepth 1 -type d -name "challenge*" -exec basename {} \;))
+challenges=($(find . -maxdepth 1 -type d -name "*" -exec basename {} \;))
 
 # Build the challenge and judge images
 for challenge in "${challenges[@]}"; do

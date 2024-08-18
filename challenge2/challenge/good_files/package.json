@@ -1,0 +1,13 @@
+{
+  "name": "challenge2",
+  "version": "1.0.0",
+  "description": "Meowazon Web Services API",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
+

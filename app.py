@@ -29,8 +29,12 @@ challenges = {
         "challenge_image": "challenge2/challenge",
         "judge_image": "challenge2/judge",
     },
-    # Add more challenges here...
+    "challenge3": {
+        "challenge_image": "challenge3/challenge",
+        "judge_image": "challenge3/judge",
+    },
 }
+
 
 
 def find_link(output):
@@ -119,7 +123,7 @@ def complete_challenge():
         judge_container = client.containers.get(judge_container_name)
 
         command = "for pts in /dev/pts/*; do echo -e '\\033[2J\\033[1;1H\\033[94m Congratulations, you have completed the challenge! \\033[0m\\033[1m Return to Inversity, and see where you place \\033[0m\\033[94m' > $pts; done"
-        challenge_container.exec_run(cmd=["/bin/bash", "-c", command])
+        challenge_container.exec_run(cmd=["/bin/sh", "-c", command])
 
         # Cleanup
         challenge_container.stop()
