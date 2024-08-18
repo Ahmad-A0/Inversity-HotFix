@@ -1,36 +1,64 @@
 import os
 import docker
-import requests
 from time import sleep
 
+TESTS = [
+    "sh -c 'test -f /root/attached.txt && echo -n 1'",
+    "sh -c 'test -f /root/test.txt && echo -n 1'",
+]
+
+def tests_passed(challenge_container, test_commands):
+    for test_command in test_commands:
+        output = challenge_container.exec_run(test_command)
+        decoded = output.output.decode("utf-8")
+        if decoded not in ["1", "1\n"]:
+            return False
+    return True
+
+# ----- 
+
 # Get the instance ID from the environment variable
-instance_id = os.environ.get('INSTANCE_ID')
+instance_id = os.environ.get("INSTANCE_ID")
 
 client = docker.from_env()
 
 challenge_container_name = f"challenge1_challenge_{instance_id}"
+provisioner_container_name = "inversity-provisioner-container"
 
-try:
-    challenge_container = client.containers.get(challenge_container_name)
-except docker.errors.NotFound:
-    print(f"Container {challenge_container_name} not found")
-    exit(1)
+tries = 0
+while tries < 20:
+    try:
+        sleep(0.2)
+        challenge_container = client.containers.get(challenge_container_name)
+        provisioner_container = client.containers.get(provisioner_container_name)
+        break
+    except docker.errors.NotFound:
+        print(
+            f"Container {challenge_container_name} or {provisioner_container_name} not found"
+        )
+        tries += 1
+        continue
 
+challenge_container.exec_run("touch /root/attached.txt")
 while True:
     try:
-        output = challenge_container.exec_run('test -f /root/test.txt && echo 1')
-        decoded = output.output.decode("utf-8")
-
-        if output:
-            response = requests.post(f"http://0.0.0.0:8080/api/challenges/complete", json={'challenge': 'challenge1', 'instance_id': instance_id})
-            if response.status_code == 200:
-                break
-            else:
-                print(f"Error completing challenge: {response.text}")
-                exit(1)
+        if tests_passed(challenge_container, TESTS):
+            output = provisioner_container.exec_run(
+                cmd=[
+                    "/usr/local/bin/python",
+                    "-c",
+                    f'import requests; response = requests.post("http://localhost:8080/api/challenges/complete", json={{"challenge": "challenge1", "instance_id": "{instance_id}"}}); print(response.text)',
+                ],
+                stdout=True,
+                stderr=True,
+            )
+            std_out = output.output.decode("utf-8")
+            std_err = output.output.decode("utf-8")
+            print(f"request output: {std_out}, {std_err}")
+            break
         else:
-            sleep(5)
-    except requests.exceptions.RequestException as e:
+            print(".", end="")
+            sleep(1)
+    except docker.errors.APIError as e:
         print(f"Error contacting server: {e}")
-        exit(1)
-
+        sleep(1)

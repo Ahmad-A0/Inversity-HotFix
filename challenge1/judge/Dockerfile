@@ -20,5 +20,5 @@ RUN chmod +x judge.py
 ENV INSTANCE_ID=None
 
 # Run the judge code when the container starts
-CMD ["python", "judge.py"]
+CMD ["python", "-u", "judge.py"]
 

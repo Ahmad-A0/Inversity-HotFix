@@ -1,6 +1,10 @@
-# Use the official Alpine image as a base
-FROM alpine:latest
+FROM ubuntu:latest
 
-# Run a command to keep the container running indefinitely
-CMD ["tail", "-f", "/dev/null"]
+# Set working directory to /root
+WORKDIR /root
 
+# Install dependencies
+RUN apt update && apt install -y curl
+
+# Run the command to get and run the script from sshx.io
+CMD ["sh", "-c", "curl -sSf https://sshx.io/get | sh -s run"]
