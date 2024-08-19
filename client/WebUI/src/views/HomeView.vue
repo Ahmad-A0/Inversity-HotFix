@@ -3,11 +3,11 @@ import BaseLayoutScrollable from '@/components/layouts/BaseLayoutScrollable.vue'
 import { ref } from 'vue';
 
 const challenges = ref([
-    { number: 1, title: 'Fix the Broken Web Server' },
-    { number: 2, title: 'Secure the File System' },
-    { number: 3, title: 'Debug the Logging System' }
+    { number: 1, title: 'HerdHitt Outage' },
+    { number: 2, title: 'Meowazon Web Services' },
+    { number: 3, title: 'Log4Jelly' },
 ]);
-const selectedChallenge = ref(challenges.value[0]);
+const selectedChallenge = ref(challenges.value[1]);
 const showInstructions = ref(false);
 const showStartDialog = ref(false);
 const sessionLink = ref('');
@@ -33,11 +33,11 @@ const leaderboardHeaders = [
 ];
 
 const leaderboardItems = [
-    { rank: 1, team: 'ByteBusters', score: 1000, time: '1:23:45' },
-    { rank: 2, team: 'CodeCrusaders', score: 950, time: '1:25:30' },
-    { rank: 3, team: 'HackHeroes', score: 900, time: '1:28:15' },
-    { rank: 4, team: 'CyberChampions', score: 850, time: '1:30:00' },
-    { rank: 5, team: 'TechTitans', score: 800, time: '1:32:45' },
+    { rank: 1, team: 'Ahmad A', score: 1000, time: '1:23:45' },
+    { rank: 2, team: 'Jensen H', score: 950, time: '1:25:30' },
+    { rank: 3, team: 'Jamie L', score: 900, time: '1:28:15' },
+    { rank: 4, team: 'Alan G', score: 850, time: '1:30:00' },
+    { rank: 5, team: 'Mark Z', score: 800, time: '1:32:45' },
 ];
 
 const uuidv4 = () => {
@@ -54,7 +54,7 @@ const uuidv4 = () => {
 const confirmStartChallenge = async () => {
     showStartDialog.value = false;
     try {
-        const response = await fetch('/api/start-challenge', {
+        const response = await fetch('/api/select', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -80,12 +80,18 @@ const confirmStartChallenge = async () => {
 <template>
     <BaseLayoutScrollable>
         <v-sheet class="ma-sm pa-sm d-flex flex-column gap-sm">
-            <h1>Daily CTF Challenge</h1>
+            <v-card color="background" class="style-card">
+                <v-card-text>
+                    <h1 class="style-card__title">Inversity <span class="hotfix">HotFix</span></h1>
+                </v-card-text>
+            </v-card>
+            <!-- <h1>Inversity HotFix</h1> -->
             <v-card class="mb-5" color="background">
                 <v-card-title>Available Challenges</v-card-title>
                 <v-card-text>
                     <p>
-                        Select a challenge and work with your teammate to solve the issue!
+                        Select a challenge and work with your teammate to solve
+                        the issue!
                     </p>
                     <v-select
                         v-model="selectedChallenge"
@@ -96,7 +102,8 @@ const confirmStartChallenge = async () => {
                         label="Select a challenge"
                     ></v-select>
                     <v-alert type="info" class="mt-3">
-                        Challenge #{{ selectedChallenge.number }}: {{ selectedChallenge.title }}
+                        Challenge #{{ selectedChallenge.number }}:
+                        {{ selectedChallenge.title }}
                     </v-alert>
                 </v-card-text>
                 <v-card-actions>
@@ -201,3 +208,50 @@ const confirmStartChallenge = async () => {
         </v-sheet>
     </BaseLayoutScrollable>
 </template>
+
+
+<style scoped lang="scss">
+.style-card {
+  background-image: linear-gradient(to right, $theme-primary, $theme-secondary, $theme-tertiary);
+
+  &__title {
+    color: $theme-background;
+    font-size: 2rem;
+  }
+
+  p {
+    color: $theme-background;
+  }
+
+  .hotfix {
+    font-size: 2.1rem;
+    // font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    padding: 0 10px;
+    animation: glow 1.5s infinite alternate;
+  }
+
+  @keyframes glow {
+    from {
+      text-shadow: 
+        0 0 5px red,
+        0 0 10px red,
+        0 0 15px red,
+        // 0 0 20px red,
+        // 0 0 35px orange,
+        // 0 0 40px orange,
+    }
+    to {
+      text-shadow: 
+        0 0 10px orange,
+        0 0 20px orange,
+        0 0 30px orange,
+        // 0 0 40px orange,
+        // 0 0 70px orange,
+        // 0 0 80px orange,
+    }
+  }
+}
+</style>

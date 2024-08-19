@@ -30,7 +30,7 @@ challenge_container_name = f"challenge1_challenge_{instance_id}"
 provisioner_container_name = "inversity-provisioner-container"
 
 tries = 0
-while tries < 20:
+while tries < 100:
     try:
         sleep(0.2)
         challenge_container = client.containers.get(challenge_container_name)
@@ -50,7 +50,7 @@ while True:
                 cmd=[
                     "/usr/local/bin/python",
                     "-c",
-                    f'import requests; response = requests.post("http://localhost:8080/api/challenges/complete", json={{"challenge": "challenge1", "instance_id": "{instance_id}"}}); print(response.text)',
+                    f'import requests; response = requests.post("http://0.0.0.0:5000/api/challenges/complete", json={{"challenge": "challenge1", "instance_id": "{instance_id}"}}); print(response.text)',
                 ],
                 stdout=True,
                 stderr=True,

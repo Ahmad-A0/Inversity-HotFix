@@ -12,6 +12,8 @@ services:
     build:
       context: ./server/challenge1/judge
       dockerfile: Dockerfile
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     image: challenge1/judge
     command: echo "Hello World"
 
@@ -26,6 +28,8 @@ services:
     build:
       context: ./server/challenge2/judge
       dockerfile: Dockerfile
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     image: challenge2/judge
     command: echo "Hello World"
 
@@ -40,6 +44,8 @@ services:
     build:
       context: ./server/challenge3/judge
       dockerfile: Dockerfile
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     image: challenge3/judge
     command: echo "Hello World"
 
@@ -47,6 +53,8 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
+    image: inversity-provisioner-container
+    container_name: inversity-provisioner-container
     ports:
       - '5000:5000'
     volumes:
@@ -56,13 +64,14 @@ services:
       - FLASK_ENV=development
     command: python -u app.py
 
-  # client:
-  #   build:
-  #     context: ./client/WebUI
-  #     dockerfile: ./Dockerfile
-  #   environment:
-  #     - CHOKIDAR_USEPOLLING=true
-  #   volumes:
-  #     - ./WebUI:/app
-  #   ports:
-  #     - "5173:5173"
+  client:
+    build:
+      context: ./client/WebUI
+      dockerfile: ./Dockerfile
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./client/WebUI:/app
+    ports:
+      - "5173:5173"
+    # command: sh -c "pwd && ls && cd /app && npm run dev:docker"

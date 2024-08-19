@@ -16,5 +16,6 @@ RUN npm install
 COPY . .
 
 EXPOSE 8080
+EXPOSE 5000
 
 ENTRYPOINT [ "npm", "run", "dev:docker" ]

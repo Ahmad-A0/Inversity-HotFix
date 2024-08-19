@@ -48,7 +48,7 @@ def find_link(output):
 
 
 # Route to select a challenge and provision containers
-@app.route("/select", methods=["POST"])
+@app.route("/api/select", methods=["POST"])
 def select_challenge():
     challenge_name = request.json.get("challenge")
     instance_id = request.json.get("instance_id")
@@ -81,7 +81,6 @@ def select_challenge():
             auto_remove=True,
             name=judge_container_name,
             network=network.name,
-            # ports={'8080': 8081},  # Map port 8080 in the container to port 8081 on the host
             volumes={
                 "/var/run/docker.sock": {"bind": "/var/run/docker.sock", "mode": "rw"}
             },
@@ -93,8 +92,8 @@ def select_challenge():
 
         link = find_link(output)
         tries = 0
-        while not link and tries < 20:
-            sleep(0.25)
+        while not link and tries < 40:
+            sleep(0.5)
             output = challenge_container.logs(stdout=True, stderr=True).decode("utf-8")
             link = find_link(output)
             tries += 1
@@ -138,6 +137,10 @@ def complete_challenge():
         return jsonify({"success": False}), 400
 
 
+@app.route("/api/test", methods=["GET"])
+def test():
+    return jsonify({"success": True})
+
 # Run the web server
 if __name__ == "__main__":
-    app.run(port=5000)
+    app.run("0.0.0.0", port=5000)

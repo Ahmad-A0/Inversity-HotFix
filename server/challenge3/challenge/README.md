@@ -17,7 +17,6 @@ As JelloFresh's newly hired "Gelatin Security Specialist" (yes, that's a real ti
 5. Remove the unsafe `eval()` call. Remember, `eval()` is like adding a "kick me" sign to your code.
 6. Refactor the logger to be less... wobbly. Make it stable, secure, and jelly-proof!
 7. Ensure it still logs all the important stuff - we need to know when we're running low on gelatin, after all.
-8. Test your changes. If the logs come out clear and not in the shape of jelly molds, you're on the right track!
 
 ## Hints for the Jelly-Brained
 

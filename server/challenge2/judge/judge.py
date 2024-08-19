@@ -9,7 +9,6 @@ TESTS = [
 ]
 
 
-
 def tests_passed(challenge_container, test_commands):
     for test_command in test_commands:
         output = challenge_container.exec_run(test_command)
@@ -34,7 +33,7 @@ challenge_container_name = f"challenge2_challenge_{instance_id}"
 provisioner_container_name = "inversity-provisioner-container"
 
 tries = 0
-while tries < 20:
+while tries < 100:
     try:
         sleep(0.2)
         challenge_container = client.containers.get(challenge_container_name)
@@ -47,14 +46,16 @@ while tries < 20:
         tries += 1
         continue
 
+
 while True:
     try:
         if tests_passed(challenge_container, TESTS):
+            # TODO: This is unsafe when instance_id is user provided
             output = provisioner_container.exec_run(
                 cmd=[
                     "/usr/local/bin/python",
                     "-c",
-                    f'import requests; response = requests.post("http://localhost:8080/api/challenges/complete", json={{"challenge": "challenge2", "instance_id": "{instance_id}"}}); print(response.text)',
+                    f'import requests; response = requests.post("http://localhost:5000/api/challenges/complete", json={{"challenge": "challenge2", "instance_id": "{instance_id}"}}); print(response.text)',
                 ],
                 stdout=True,
                 stderr=True,
