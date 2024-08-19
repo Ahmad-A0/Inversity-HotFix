@@ -9,6 +9,7 @@ services:
       - "5000:5000"
     volumes:
       - ./server:/app
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - FLASK_ENV=development
     command: python -u app.py
