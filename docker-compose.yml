@@ -6,24 +6,42 @@ services:
       context: ./server/challenge1/challenge
       dockerfile: Dockerfile
     image: challenge1/challenge
+	cmd: echo "Hello World"
 
   challenge1_judge:
     build:
       context: ./server/challenge1/judge
       dockerfile: Dockerfile
     image: challenge1/judge
+	cmd: echo "Hello World"
 
   challenge2_challenge:
     build:
       context: ./server/challenge2/challenge
       dockerfile: Dockerfile
     image: challenge2/challenge
+	cmd: echo "Hello World"
 
   challenge2_judge:
     build:
       context: ./server/challenge2/judge
       dockerfile: Dockerfile
     image: challenge2/judge
+	cmd: echo "Hello World"
+
+  challenge3_challenge:
+    build:
+      context: ./server/challenge3/challenge
+      dockerfile: Dockerfile
+    image: challenge3/challenge
+	cmd: echo "Hello World"
+
+  challenge3_judge:
+    build:
+      context: ./server/challenge3/judge
+      dockerfile: Dockerfile
+    image: challenge3/judge
+	cmd: echo "Hello World"
 
   server:
     build:
