@@ -1,0 +1,275 @@
+/*
+Concrete font sizes
+
+Use these for fixed sized containers where the font size should not change
+to ensure that the content fits within the container.
+*/
+$font-size-xxs: 10px;
+$font-size-xs: 12px;
+$font-size-sm: 14px;
+$font-size-md: 16px;
+$font-size-lg: 18px;
+$font-size-xl: 20px;
+
+/* Utility classes for font sizes */
+%p-inherit {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+%h-inherit {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: inherit;
+    line-height: inherit;
+  }
+}
+
+.font-size-xxs {
+  font-size: $font-size-xxs;
+  line-height: 1.5em;
+
+  @extend %p-inherit;
+  @extend %h-inherit;
+}
+
+.font-size-xs {
+  font-size: $font-size-xs;
+  line-height: 1.5em;
+
+  @extend %p-inherit;
+  @extend %h-inherit;
+}
+
+.font-size-sm {
+  font-size: $font-size-sm;
+  line-height: 1.57em;
+  @extend %p-inherit;
+  @extend %h-inherit;
+}
+
+.font-size-md {
+  font-size: $font-size-md;
+  line-height: 1.37em;
+  @extend %p-inherit;
+  @extend %h-inherit;
+}
+
+.font-size-lg {
+  font-size: $font-size-lg;
+  @extend %p-inherit;
+  @extend %h-inherit;
+}
+
+.font-size-xl {
+  font-size: $font-size-xl;
+  @extend %p-inherit;
+  @extend %h-inherit;
+}
+
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semi-bold: 600;
+$font-weight-bold: 700;
+
+// Font weight
+%font-weight-regular {
+  font-weight: $font-weight-regular;
+}
+
+%font-weight-medium {
+  font-weight: $font-weight-medium;
+}
+
+%font-weight-semi-bold {
+  font-weight: $font-weight-semi-bold;
+}
+
+%font-weight-bold {
+  font-weight: $font-weight-bold;
+}
+
+.font-weight-regular {
+  @extend %font-weight-regular;
+}
+
+.font-weight-medium {
+  @extend %font-weight-medium;
+}
+
+.font-weight-semi-bold {
+  @extend %font-weight-semi-bold;
+}
+
+.font-weight-bold {
+  @extend %font-weight-bold;
+}
+
+b,
+strong {
+  @extend %font-weight-bold;
+}
+
+%root-font-size {
+  font-size: min(20px, calc(15px + 0.390625vw));
+}
+
+:root {
+  @extend %font-weight-regular;
+  font-family: Montserrat, sans-serif;
+  /*
+  By default we use a responsive base font size - eg:
+  320px (eg: iPhone 4 & 5)	16px
+  768px (eg: iPad portrait)	18px
+  1024px (eg: iPad landscape)	19px
+  1280px	20px
+  1536px	21px
+  1920px	23px
+  2560px	25px
+  */
+  @extend %root-font-size;
+  line-height: 1.625rem; /* Base line height */
+}
+
+/* Headers */
+
+%heading-h1 {
+  @extend %font-weight-bold;
+  font-size: 3em;
+  line-height: 1.16em; /* 116.667% */
+}
+
+%heading-h2 {
+  @extend %font-weight-semi-bold;
+  font-size: 2.25em;
+  line-height: 1.22em; /* 122.222% */
+}
+
+%heading-h3 {
+  @extend %font-weight-semi-bold;
+  font-size: 1.5em;
+  line-height: 1.33em; /* 133.333% */
+}
+
+%heading-h4 {
+  @extend %font-weight-medium;
+  font-size: 1.25em;
+  line-height: 1.4em; /* 140% */
+}
+
+/* Class definitions extending the placeholders */
+h1 {
+  @extend %heading-h1;
+  color: $theme-text;
+}
+
+h2 {
+  @extend %heading-h2;
+  color: $theme-text-lighten-1;
+}
+
+h3 {
+  @extend %heading-h3;
+  color: $theme-text-lighten-1;
+}
+
+h4 {
+  @extend %heading-h4;
+  color: $theme-text-lighten-1;
+}
+
+/* Paragraphs */
+
+%p1 {
+  font-size: 1em;
+  line-height: 1.375em; /* 137.5% */
+}
+
+%p2 {
+  /* Paragraph/P2 ( Size 16px)/Semibold */
+  font-size: 0.875em;
+  line-height: 1.571em; /* 157.143% */
+}
+
+%p3 {
+  /* Paragraph/P3 ( Size 14px)/Regular */
+  font-size: 0.75em;
+  line-height: 1.5em; /* Adjusted to about 150% */
+}
+
+// Class definitions extending the placeholders
+p.p1,
+span.p1,
+li.p1 {
+  @extend %p1;
+}
+
+p.p2,
+span.p2,
+li.p2 {
+  @extend %p2;
+}
+
+p.p3,
+span.p3,
+li.p3 {
+  @extend %p3;
+}
+
+p {
+  // Use p1 as our base paragraph style
+  @extend %p1;
+  // Use a lighter text colour for paragraphs for better readability
+  color: $theme-text-lighten-2;
+}
+
+@media screen and (max-width: $breakpoint-md) {
+  // On mobile, we cut heading sizes down significantly (even in rem terms)
+  // as we care much more about screen real estate
+  /* Headings */
+  h1 {
+    font-size: 1.5em;
+    line-height: 1.33em; /* 133.333% */
+  }
+
+  /* Introducing H2 with a size between H1 and H3 */
+  h2 {
+    font-size: 1.3125em; /* Sized between H1 (1.5em) and H3 (1.125em) */
+    line-height: 1.43em; /* Setting line height to 143% for balance */
+  }
+
+  h3 {
+    font-size: 1.125em;
+    line-height: 1.44em; /* 144.444% */
+  }
+
+  h4 {
+    font-size: 1em;
+    line-height: 1.5em; /* Adjusted to 150% for better vertical rhythm */
+  }
+}
+
+/*
+List indentation - keep lists inline with the rest of the content
+and then indents the list items. This is generally what we want as
+it keeps the list items in line with the rest of the content, which
+saves us width on the page - especially on mobile.
+*/
+ul,
+ol {
+  list-style-position: inside;
+  text-indent: -1em;
+  padding-left: 1em; // needed to cancel the text-indent for the numbers
+}
+
+/*
+Set the default link styles
+*/
+a:hover {
+  text-shadow: 1px 1px 2px #888888;
+  text-decoration: underline;
+}

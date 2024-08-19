@@ -1,0 +1,13 @@
+/*
+Overrides for default Vuetify styles
+*/
+
+/*
+See https://github.com/vuetifyjs/vuetify/issues/1197
+Vuetify's default styling for the html element is to set overflow-y to scroll
+meaning that a scrollbar will always be present, even when the content doesn't
+overflow.
+*/
+html {
+  overflow-y: auto;
+}

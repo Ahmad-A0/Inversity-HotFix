@@ -1,0 +1,956 @@
+/* Vuetify theme shorthands for use in our SCSS */
+$theme-background: rgb(var(--v-theme-background));
+$theme-surface: rgb(var(--v-theme-surface));
+$theme-surface-darken-1: rgb(var(--v-theme-surface-darken-1));
+$theme-primary: rgb(var(--v-theme-primary));
+$theme-secondary: rgb(var(--v-theme-secondary));
+$theme-tertiary: rgb(var(--v-theme-tertiary));
+$theme-error: rgb(var(--v-theme-error));
+$theme-info: rgb(var(--v-theme-info));
+$theme-success: rgb(var(--v-theme-success));
+$theme-warning: rgb(var(--v-theme-warning));
+$theme-text: rgb(var(--v-theme-text));
+$theme-text-lighten-1: rgb(var(--v-theme-text-lighten-1));
+$theme-text-lighten-2: rgb(var(--v-theme-text-lighten-2));
+$theme-membership: rgb(var(--v-theme-membership));
+$theme-soft-info: rgba(198, 46, 101, 0.1);
+$theme-gray-100: rgb(var(--v-theme-gray-100));
+
+%text-color-background {
+  color: $theme-background;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  label {
+    color: inherit;
+  }
+  .v-label {
+    // vuetify labels are translucent by default, which causes them to be hard to read on a dark background
+    opacity: 100%;
+  }
+}
+
+/* Background colours (set these on containers so that the text within the container will also be the right colour to show up on the background */
+.bg-primary {
+  @extend %text-color-background;
+  background-color: $theme-primary;
+}
+
+.bg-secondary {
+  @extend %text-color-background;
+  background-color: $theme-secondary;
+}
+
+/* Breakpoints */
+$breakpoint-xs: 0px;
+$breakpoint-sm: 600px;
+$breakpoint-md: 960px;
+$breakpoint-lg: 1264px;
+
+/* Spacing base sizes */
+$spacing-xxs: 5px;
+$spacing-xs: 9px;
+$spacing-sm: 18px;
+$spacing-md: 36px;
+$spacing-lg: 72px;
+$spacing-xl: 100px;
+
+/* Align inline h1 with other elements eg button */
+$spacing-align-h1: 5px;
+
+$border-thick-surface: 5px solid $theme-surface;
+
+$border-radius-sm: 5px;
+$border-radius-md: 10px;
+
+/* Component layout heights */
+$navbar-height-desktop: 4em;
+$navbar-height-mobile: 2.5em;
+$footer-height: 32px;
+
+
+/* Utility classes for spacing */
+.gap-xs {
+  gap: $spacing-xs;
+}
+
+.gap-sm {
+  gap: $spacing-sm;
+}
+
+.gap-md {
+  gap: $spacing-md;
+}
+
+.gap-lg {
+  gap: $spacing-lg;
+}
+
+.gap-xl {
+  gap: $spacing-xl;
+}
+
+/* Utility classes for padding */
+.pt-xxs {
+  padding-top: $spacing-xxs;
+}
+
+.pb-xxs {
+  padding-bottom: $spacing-xxs;
+}
+
+.pl-xxs {
+  padding-left: $spacing-xxs;
+}
+
+.pr-xxs {
+  padding-right: $spacing-xxs;
+}
+
+.pa-xxs {
+  padding: $spacing-xxs;
+}
+
+/* Utility classes for margin */
+.mt-xxs {
+  margin-top: $spacing-xxs;
+}
+
+.mb-xxs {
+  margin-bottom: $spacing-xxs;
+}
+
+.ml-xxs {
+  margin-left: $spacing-xxs;
+}
+
+.mr-xxs {
+  margin-right: $spacing-xxs;
+}
+
+.ma-xxs {
+  margin: $spacing-xxs;
+}
+
+// auto-generated classes for padding and margin across all sizes
+
+.pt-xs {
+  padding-top: $spacing-xs;
+}
+
+.pb-xs {
+  padding-bottom: $spacing-xs;
+}
+
+.pl-xs {
+  padding-left: $spacing-xs;
+}
+
+.pr-xs {
+  padding-right: $spacing-xs;
+}
+
+.pa-xs {
+  padding: $spacing-xs;
+}
+
+.mt-xs {
+  margin-top: $spacing-xs;
+}
+
+.mb-xs {
+  margin-bottom: $spacing-xs;
+}
+
+.ml-xs {
+  margin-left: $spacing-xs;
+}
+
+.mr-xs {
+  margin-right: $spacing-xs;
+}
+
+.ma-xs {
+  margin: $spacing-xs;
+}
+
+.pt-sm {
+  padding-top: $spacing-sm;
+}
+
+.pb-sm {
+  padding-bottom: $spacing-sm;
+}
+
+.pl-sm {
+  padding-left: $spacing-sm;
+}
+
+.pr-sm {
+  padding-right: $spacing-sm;
+}
+
+.pa-sm {
+  padding: $spacing-sm;
+}
+
+.mt-sm {
+  margin-top: $spacing-sm;
+}
+
+.mb-sm {
+  margin-bottom: $spacing-sm;
+}
+
+.ml-sm {
+  margin-left: $spacing-sm;
+}
+
+.mr-sm {
+  margin-right: $spacing-sm;
+}
+
+.ma-sm {
+  margin: $spacing-sm;
+}
+
+.pt-md {
+  padding-top: $spacing-md;
+}
+
+.pb-md {
+  padding-bottom: $spacing-md;
+}
+
+.pl-md {
+  padding-left: $spacing-md;
+}
+
+.pr-md {
+  padding-right: $spacing-md;
+}
+
+.pa-md {
+  padding: $spacing-md;
+}
+
+.mt-md {
+  margin-top: $spacing-md;
+}
+
+.mb-md {
+  margin-bottom: $spacing-md;
+}
+
+.ml-md {
+  margin-left: $spacing-md;
+}
+
+.mr-md {
+  margin-right: $spacing-md;
+}
+
+.ma-md {
+  margin: $spacing-md;
+}
+
+.pt-lg {
+  padding-top: $spacing-lg;
+}
+
+.pb-lg {
+  padding-bottom: $spacing-lg;
+}
+
+.pl-lg {
+  padding-left: $spacing-lg;
+}
+
+.pr-lg {
+  padding-right: $spacing-lg;
+}
+
+.pa-lg {
+  padding: $spacing-lg;
+}
+
+.mt-lg {
+  margin-top: $spacing-lg;
+}
+
+.mb-lg {
+  margin-bottom: $spacing-lg;
+}
+
+.ml-lg {
+  margin-left: $spacing-lg;
+}
+
+.mr-lg {
+  margin-right: $spacing-lg;
+}
+
+.ma-lg {
+  margin: $spacing-lg;
+}
+
+.pt-xl {
+  padding-top: $spacing-xl;
+}
+
+.pb-xl {
+  padding-bottom: $spacing-xl;
+}
+
+.pl-xl {
+  padding-left: $spacing-xl;
+}
+
+.pr-xl {
+  padding-right: $spacing-xl;
+}
+
+.pa-xl {
+  padding: $spacing-xl;
+}
+
+.mt-xl {
+  margin-top: $spacing-xl;
+}
+
+.mb-xl {
+  margin-bottom: $spacing-xl;
+}
+
+.ml-xl {
+  margin-left: $spacing-xl;
+}
+
+.mr-xl {
+  margin-right: $spacing-xl;
+}
+
+.ma-xl {
+  margin: $spacing-xl;
+}
+
+/* 
+These auto-generated styles let us apply our above sizes in a media-queried way for responsive spacing 
+ie class="sm:pt-md" will apply padding-top: $spacing-md; on small screens and up
+*/
+
+@media (min-width: $breakpoint-sm) {
+  .sm\:gap-xs {
+    gap: $spacing-xs;
+  }
+  .sm\:gap-sm {
+    gap: $spacing-sm;
+  }
+  .sm\:gap-md {
+    gap: $spacing-md;
+  }
+  .sm\:gap-lg {
+    gap: $spacing-lg;
+  }
+  .sm\:gap-xl {
+    gap: $spacing-xl;
+  }
+
+  .sm\:pt-xxs {
+    padding-top: $spacing-xxs;
+  }
+  .sm\:pb-xxs {
+    padding-bottom: $spacing-xxs;
+  }
+  .sm\:pl-xxs {
+    padding-left: $spacing-xxs;
+  }
+  .sm\:pr-xxs {
+    padding-right: $spacing-xxs;
+  }
+  .sm\:pa-xxs {
+    padding: $spacing-xxs;
+  }
+  .sm\:mt-xxs {
+    margin-top: $spacing-xxs;
+  }
+  .sm\:mb-xxs {
+    margin-bottom: $spacing-xxs;
+  }
+  .sm\:ml-xxs {
+    margin-left: $spacing-xxs;
+  }
+  .sm\:mr-xxs {
+    margin-right: $spacing-xxs;
+  }
+  .sm\:ma-xxs {
+    margin: $spacing-xxs;
+  }
+
+  .sm\:pt-xs {
+    padding-top: $spacing-xs;
+  }
+  .sm\:pb-xs {
+    padding-bottom: $spacing-xs;
+  }
+  .sm\:pl-xs {
+    padding-left: $spacing-xs;
+  }
+  .sm\:pr-xs {
+    padding-right: $spacing-xs;
+  }
+  .sm\:pa-xs {
+    padding: $spacing-xs;
+  }
+  .sm\:mt-xs {
+    margin-top: $spacing-xs;
+  }
+  .sm\:mb-xs {
+    margin-bottom: $spacing-xs;
+  }
+  .sm\:ml-xs {
+    margin-left: $spacing-xs;
+  }
+  .sm\:mr-xs {
+    margin-right: $spacing-xs;
+  }
+  .sm\:ma-xs {
+    margin: $spacing-xs;
+  }
+
+  .sm\:pt-sm {
+    padding-top: $spacing-sm;
+  }
+  .sm\:pb-sm {
+    padding-bottom: $spacing-sm;
+  }
+  .sm\:pl-sm {
+    padding-left: $spacing-sm;
+  }
+  .sm\:pr-sm {
+    padding-right: $spacing-sm;
+  }
+  .sm\:pa-sm {
+    padding: $spacing-sm;
+  }
+  .sm\:mt-sm {
+    margin-top: $spacing-sm;
+  }
+  .sm\:mb-sm {
+    margin-bottom: $spacing-sm;
+  }
+  .sm\:ml-sm {
+    margin-left: $spacing-sm;
+  }
+  .sm\:mr-sm {
+    margin-right: $spacing-sm;
+  }
+  .sm\:ma-sm {
+    margin: $spacing-sm;
+  }
+
+  .sm\:pt-md {
+    padding-top: $spacing-md;
+  }
+  .sm\:pb-md {
+    padding-bottom: $spacing-md;
+  }
+  .sm\:pl-md {
+    padding-left: $spacing-md;
+  }
+  .sm\:pr-md {
+    padding-right: $spacing-md;
+  }
+  .sm\:pa-md {
+    padding: $spacing-md;
+  }
+  .sm\:mt-md {
+    margin-top: $spacing-md;
+  }
+  .sm\:mb-md {
+    margin-bottom: $spacing-md;
+  }
+  .sm\:ml-md {
+    margin-left: $spacing-md;
+  }
+  .sm\:mr-md {
+    margin-right: $spacing-md;
+  }
+  .sm\:ma-md {
+    margin: $spacing-md;
+  }
+
+  .sm\:pt-lg {
+    padding-top: $spacing-lg;
+  }
+  .sm\:pb-lg {
+    padding-bottom: $spacing-lg;
+  }
+  .sm\:pl-lg {
+    padding-left: $spacing-lg;
+  }
+  .sm\:pr-lg {
+    padding-right: $spacing-lg;
+  }
+  .sm\:pa-lg {
+    padding: $spacing-lg;
+  }
+  .sm\:mt-lg {
+    margin-top: $spacing-lg;
+  }
+  .sm\:mb-lg {
+    margin-bottom: $spacing-lg;
+  }
+  .sm\:ml-lg {
+    margin-left: $spacing-lg;
+  }
+  .sm\:mr-lg {
+    margin-right: $spacing-lg;
+  }
+  .sm\:ma-lg {
+    margin: $spacing-lg;
+  }
+
+  .sm\:pt-xl {
+    padding-top: $spacing-xl;
+  }
+  .sm\:pb-xl {
+    padding-bottom: $spacing-xl;
+  }
+  .sm\:pl-xl {
+    padding-left: $spacing-xl;
+  }
+  .sm\:pr-xl {
+    padding-right: $spacing-xl;
+  }
+  .sm\:pa-xl {
+    padding: $spacing-xl;
+  }
+  .sm\:mt-xl {
+    margin-top: $spacing-xl;
+  }
+  .sm\:mb-xl {
+    margin-bottom: $spacing-xl;
+  }
+  .sm\:ml-xl {
+    margin-left: $spacing-xl;
+  }
+  .sm\:mr-xl {
+    margin-right: $spacing-xl;
+  }
+  .sm\:ma-xl {
+    margin: $spacing-xl;
+  }
+}
+
+@media (min-width: $breakpoint-md) {
+  .md\:gap-xs {
+    gap: $spacing-xs;
+  }
+  .md\:gap-sm {
+    gap: $spacing-sm;
+  }
+  .md\:gap-md {
+    gap: $spacing-md;
+  }
+  .md\:gap-lg {
+    gap: $spacing-lg;
+  }
+  .md\:gap-xl {
+    gap: $spacing-xl;
+  }
+
+  .md\:pt-xxs {
+    padding-top: $spacing-xxs;
+  }
+  .md\:pb-xxs {
+    padding-bottom: $spacing-xxs;
+  }
+  .md\:pl-xxs {
+    padding-left: $spacing-xxs;
+  }
+  .md\:pr-xxs {
+    padding-right: $spacing-xxs;
+  }
+  .md\:pa-xxs {
+    padding: $spacing-xxs;
+  }
+  .md\:mt-xxs {
+    margin-top: $spacing-xxs;
+  }
+  .md\:mb-xxs {
+    margin-bottom: $spacing-xxs;
+  }
+  .md\:ml-xxs {
+    margin-left: $spacing-xxs;
+  }
+  .md\:mr-xxs {
+    margin-right: $spacing-xxs;
+  }
+  .md\:ma-xxs {
+    margin: $spacing-xxs;
+  }
+
+  .md\:pt-xs {
+    padding-top: $spacing-xs;
+  }
+  .md\:pb-xs {
+    padding-bottom: $spacing-xs;
+  }
+  .md\:pl-xs {
+    padding-left: $spacing-xs;
+  }
+  .md\:pr-xs {
+    padding-right: $spacing-xs;
+  }
+  .md\:pa-xs {
+    padding: $spacing-xs;
+  }
+  .md\:mt-xs {
+    margin-top: $spacing-xs;
+  }
+  .md\:mb-xs {
+    margin-bottom: $spacing-xs;
+  }
+  .md\:ml-xs {
+    margin-left: $spacing-xs;
+  }
+  .md\:mr-xs {
+    margin-right: $spacing-xs;
+  }
+  .md\:ma-xs {
+    margin: $spacing-xs;
+  }
+
+  .md\:pt-sm {
+    padding-top: $spacing-sm;
+  }
+  .md\:pb-sm {
+    padding-bottom: $spacing-sm;
+  }
+  .md\:pl-sm {
+    padding-left: $spacing-sm;
+  }
+  .md\:pr-sm {
+    padding-right: $spacing-sm;
+  }
+  .md\:pa-sm {
+    padding: $spacing-sm;
+  }
+  .md\:mt-sm {
+    margin-top: $spacing-sm;
+  }
+  .md\:mb-sm {
+    margin-bottom: $spacing-sm;
+  }
+  .md\:ml-sm {
+    margin-left: $spacing-sm;
+  }
+  .md\:mr-sm {
+    margin-right: $spacing-sm;
+  }
+  .md\:ma-sm {
+    margin: $spacing-sm;
+  }
+
+  .md\:pt-md {
+    padding-top: $spacing-md;
+  }
+  .md\:pb-md {
+    padding-bottom: $spacing-md;
+  }
+  .md\:pl-md {
+    padding-left: $spacing-md;
+  }
+  .md\:pr-md {
+    padding-right: $spacing-md;
+  }
+  .md\:pa-md {
+    padding: $spacing-md;
+  }
+  .md\:mt-md {
+    margin-top: $spacing-md;
+  }
+  .md\:mb-md {
+    margin-bottom: $spacing-md;
+  }
+  .md\:ml-md {
+    margin-left: $spacing-md;
+  }
+  .md\:mr-md {
+    margin-right: $spacing-md;
+  }
+  .md\:ma-md {
+    margin: $spacing-md;
+  }
+
+  .md\:pt-lg {
+    padding-top: $spacing-lg;
+  }
+  .md\:pb-lg {
+    padding-bottom: $spacing-lg;
+  }
+  .md\:pl-lg {
+    padding-left: $spacing-lg;
+  }
+  .md\:pr-lg {
+    padding-right: $spacing-lg;
+  }
+  .md\:pa-lg {
+    padding: $spacing-lg;
+  }
+  .md\:mt-lg {
+    margin-top: $spacing-lg;
+  }
+  .md\:mb-lg {
+    margin-bottom: $spacing-lg;
+  }
+  .md\:ml-lg {
+    margin-left: $spacing-lg;
+  }
+  .md\:mr-lg {
+    margin-right: $spacing-lg;
+  }
+  .md\:ma-lg {
+    margin: $spacing-lg;
+  }
+
+  .md\:pt-xl {
+    padding-top: $spacing-xl;
+  }
+  .md\:pb-xl {
+    padding-bottom: $spacing-xl;
+  }
+  .md\:pl-xl {
+    padding-left: $spacing-xl;
+  }
+  .md\:pr-xl {
+    padding-right: $spacing-xl;
+  }
+  .md\:pa-xl {
+    padding: $spacing-xl;
+  }
+  .md\:mt-xl {
+    margin-top: $spacing-xl;
+  }
+  .md\:mb-xl {
+    margin-bottom: $spacing-xl;
+  }
+  .md\:ml-xl {
+    margin-left: $spacing-xl;
+  }
+  .md\:mr-xl {
+    margin-right: $spacing-xl;
+  }
+  .md\:ma-xl {
+    margin: $spacing-xl;
+  }
+}
+
+@media (min-width: $breakpoint-lg) {
+  .lg\:gap-xs {
+    gap: $spacing-xs;
+  }
+  .lg\:gap-sm {
+    gap: $spacing-sm;
+  }
+  .lg\:gap-md {
+    gap: $spacing-md;
+  }
+  .lg\:gap-lg {
+    gap: $spacing-lg;
+  }
+  .lg\:gap-xl {
+    gap: $spacing-xl;
+  }
+
+  .lg\:pt-xxs {
+    padding-top: $spacing-xxs;
+  }
+  .lg\:pb-xxs {
+    padding-bottom: $spacing-xxs;
+  }
+  .lg\:pl-xxs {
+    padding-left: $spacing-xxs;
+  }
+  .lg\:pr-xxs {
+    padding-right: $spacing-xxs;
+  }
+  .lg\:pa-xxs {
+    padding: $spacing-xxs;
+  }
+  .lg\:mt-xxs {
+    margin-top: $spacing-xxs;
+  }
+  .lg\:mb-xxs {
+    margin-bottom: $spacing-xxs;
+  }
+  .lg\:ml-xxs {
+    margin-left: $spacing-xxs;
+  }
+  .lg\:mr-xxs {
+    margin-right: $spacing-xxs;
+  }
+  .lg\:ma-xxs {
+    margin: $spacing-xxs;
+  }
+
+  .lg\:pt-xs {
+    padding-top: $spacing-xs;
+  }
+  .lg\:pb-xs {
+    padding-bottom: $spacing-xs;
+  }
+  .lg\:pl-xs {
+    padding-left: $spacing-xs;
+  }
+  .lg\:pr-xs {
+    padding-right: $spacing-xs;
+  }
+  .lg\:pa-xs {
+    padding: $spacing-xs;
+  }
+  .lg\:mt-xs {
+    margin-top: $spacing-xs;
+  }
+  .lg\:mb-xs {
+    margin-bottom: $spacing-xs;
+  }
+  .lg\:ml-xs {
+    margin-left: $spacing-xs;
+  }
+  .lg\:mr-xs {
+    margin-right: $spacing-xs;
+  }
+  .lg\:ma-xs {
+    margin: $spacing-xs;
+  }
+
+  .lg\:pt-sm {
+    padding-top: $spacing-sm;
+  }
+  .lg\:pb-sm {
+    padding-bottom: $spacing-sm;
+  }
+  .lg\:pl-sm {
+    padding-left: $spacing-sm;
+  }
+  .lg\:pr-sm {
+    padding-right: $spacing-sm;
+  }
+  .lg\:pa-sm {
+    padding: $spacing-sm;
+  }
+  .lg\:mt-sm {
+    margin-top: $spacing-sm;
+  }
+  .lg\:mb-sm {
+    margin-bottom: $spacing-sm;
+  }
+  .lg\:ml-sm {
+    margin-left: $spacing-sm;
+  }
+  .lg\:mr-sm {
+    margin-right: $spacing-sm;
+  }
+  .lg\:ma-sm {
+    margin: $spacing-sm;
+  }
+
+  .lg\:pt-md {
+    padding-top: $spacing-md;
+  }
+  .lg\:pb-md {
+    padding-bottom: $spacing-md;
+  }
+  .lg\:pl-md {
+    padding-left: $spacing-md;
+  }
+  .lg\:pr-md {
+    padding-right: $spacing-md;
+  }
+  .lg\:pa-md {
+    padding: $spacing-md;
+  }
+  .lg\:mt-md {
+    margin-top: $spacing-md;
+  }
+  .lg\:mb-md {
+    margin-bottom: $spacing-md;
+  }
+  .lg\:ml-md {
+    margin-left: $spacing-md;
+  }
+  .lg\:mr-md {
+    margin-right: $spacing-md;
+  }
+  .lg\:ma-md {
+    margin: $spacing-md;
+  }
+
+  .lg\:pt-lg {
+    padding-top: $spacing-lg;
+  }
+  .lg\:pb-lg {
+    padding-bottom: $spacing-lg;
+  }
+  .lg\:pl-lg {
+    padding-left: $spacing-lg;
+  }
+  .lg\:pr-lg {
+    padding-right: $spacing-lg;
+  }
+  .lg\:pa-lg {
+    padding: $spacing-lg;
+  }
+  .lg\:mt-lg {
+    margin-top: $spacing-lg;
+  }
+  .lg\:mb-lg {
+    margin-bottom: $spacing-lg;
+  }
+  .lg\:ml-lg {
+    margin-left: $spacing-lg;
+  }
+  .lg\:mr-lg {
+    margin-right: $spacing-lg;
+  }
+  .lg\:ma-lg {
+    margin: $spacing-lg;
+  }
+
+  .lg\:pt-xl {
+    padding-top: $spacing-xl;
+  }
+  .lg\:pb-xl {
+    padding-bottom: $spacing-xl;
+  }
+  .lg\:pl-xl {
+    padding-left: $spacing-xl;
+  }
+  .lg\:pr-xl {
+    padding-right: $spacing-xl;
+  }
+  .lg\:pa-xl {
+    padding: $spacing-xl;
+  }
+  .lg\:mt-xl {
+    margin-top: $spacing-xl;
+  }
+  .lg\:mb-xl {
+    margin-bottom: $spacing-xl;
+  }
+  .lg\:ml-xl {
+    margin-left: $spacing-xl;
+  }
+  .lg\:mr-xl {
+    margin-right: $spacing-xl;
+  }
+  .lg\:ma-xl {
+    margin: $spacing-xl;
+  }
+}
