@@ -1,4 +1,4 @@
-**Challenge: Meowazon Web Services**
+**Challenge: Log4Jelly**
 
 **The Canine Catastrophe**
 
