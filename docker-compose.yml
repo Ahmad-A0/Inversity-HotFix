@@ -1,29 +1,46 @@
 version: '3.8'
 
 services:
-  server:
-    build:
-      context: ./server
-      dockerfile: Dockerfile
-    ports:
-      - "5000:5000"
-    volumes:
-      - ./server:/app
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - FLASK_ENV=development
-    command: python -u app.py
+    challenge1_challenge:
+        build:
+            context: ./server/challenge1/challenge
+			dockerfile: Dockerfile
+			container_name: challenge1/challenge
+	challenge1_judge:
+		build:
+			context: ./server/challenge1/judge
+			dockerfile: Dockerfile
+			container_name: challenge1/judge
+	challenge2_challenge:
+		build:
+			context: ./server/challenge2/challenge
+			dockerfile: Dockerfile
+			container_name: challenge2/challenge
+	challenge2_judge:
+		build:
+			context: ./server/challenge2/judge
+			dockerfile: Dockerfile
+			container_name: challenge2/judge
+    server:
+        build:
+            context: ./server
+            dockerfile: Dockerfile
+        ports:
+            - '5000:5000'
+        volumes:
+            - ./server:/app
+            - /var/run/docker.sock:/var/run/docker.sock
+        environment:
+            - FLASK_ENV=development
+        command: python -u app.py
 
-  client:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-    volumes:
-      - ./client:/app
-    ports:
-      - "5173:5173"
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-    command: sh -c "cd /app/WebUI && npm run dev"
-    depends_on:
-      - server
+    # client:
+    #   build:
+    #     context: ./client/WebUI
+    #     dockerfile: ./Dockerfile
+    #   environment:
+    #     - CHOKIDAR_USEPOLLING=true
+    #   volumes:
+    #     - ./WebUI:/app
+    #   ports:
+    #     - "5173:5173"
