@@ -20,6 +20,10 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./client:/app
-    command: sh -c "docker-compose -f /app/docker-compose.yaml up"
+    ports:
+      - "5173:5173"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: sh -c "cd /app/WebUI && npm run dev"
     depends_on:
       - server
