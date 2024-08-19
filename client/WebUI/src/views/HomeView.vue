@@ -10,12 +10,12 @@ const sessionLink = ref('');
 
 const upcomingChallenges = [
     {
-        number: 2,
+        number: 4,
         title: 'Secure the Database',
         releaseDate: '2024-08-20',
     },
     {
-        number: 3,
+        number: 5,
         title: 'Optimize Network Performance',
         releaseDate: '2024-08-21',
     },
@@ -36,7 +36,19 @@ const leaderboardItems = [
     { rank: 5, team: 'TechTitans', score: 800, time: '1:32:45' },
 ];
 
+const uuidv4 = () => {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+        /[xy]/g,
+        function (c) {
+            var r = (Math.random() * 16) | 0,
+                v = c == 'x' ? r : (r & 0x3) | 0x8;
+            return v.toString(16);
+        }
+    );
+};
+
 const confirmStartChallenge = async () => {
+    // curl -X POST -H "Content-Type: application/json" -d '{"challenge": "challenge2", "instance_id": "'$(shuf -i 1000-9999 -n 1)'"}' http://127.0.0.1:5000/select
     showStartDialog.value = false;
     try {
         const response = await fetch('/api/start-challenge', {
@@ -44,7 +56,10 @@ const confirmStartChallenge = async () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ challengeNumber: challengeNumber.value }),
+            body: JSON.stringify({
+                challenge: 'challenge2',
+                instance_id: uuidv4(),
+            }),
         });
         const data = await response.json();
         if (data.link) {
@@ -85,12 +100,23 @@ const confirmStartChallenge = async () => {
                 <v-card>
                     <v-card-title>Start Challenge?</v-card-title>
                     <v-card-text>
-                        Warning: Clicking 'Start' will begin the challenge and start the timer. Are you sure you want to proceed?
+                        Warning: Clicking 'Start' will begin the challenge and
+                        start the timer. Are you sure you want to proceed?
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" text @click="showStartDialog = false">Cancel</v-btn>
-                        <v-btn color="blue darken-1" text @click="confirmStartChallenge">Start</v-btn>
+                        <v-btn
+                            color="blue darken-1"
+                            text
+                            @click="showStartDialog = false"
+                            >Cancel</v-btn
+                        >
+                        <v-btn
+                            color="blue darken-1"
+                            text
+                            @click="confirmStartChallenge"
+                            >Start</v-btn
+                        >
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -104,7 +130,8 @@ const confirmStartChallenge = async () => {
                     </p>
                     <ol>
                         <li>
-                            Click the link below to start your challenge session:
+                            Click the link below to start your challenge
+                            session:
                         </li>
                         <v-btn
                             color="primary"
@@ -115,13 +142,16 @@ const confirmStartChallenge = async () => {
                             Start Challenge Session
                         </v-btn>
                         <li>
-                            Once connected, follow the instructions provided in the challenge environment.
+                            Once connected, follow the instructions provided in
+                            the challenge environment.
                         </li>
                         <li>
-                            Investigate the issue and fix it within the time limit.
+                            Investigate the issue and fix it within the time
+                            limit.
                         </li>
                         <li>
-                            Submit your solution using the method specified in the challenge environment.
+                            Submit your solution using the method specified in
+                            the challenge environment.
                         </li>
                     </ol>
                 </v-card-text>
