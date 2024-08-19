@@ -18,11 +18,25 @@ import BaseLayoutScrollable from '@/components/layouts/BaseLayoutScrollable.vue'
                     </v-alert>
                 </v-card-text>
                 <v-card-actions>
-                    <v-btn color="primary" @click="startChallenge"
+                    <v-btn color="primary" @click="showStartDialog = true"
                         >Start Challenge with Teammate</v-btn
                     >
                 </v-card-actions>
             </v-card>
+
+            <v-dialog v-model="showStartDialog" max-width="500px">
+                <v-card>
+                    <v-card-title>Start Challenge?</v-card-title>
+                    <v-card-text>
+                        Warning: Clicking 'Start' will begin the challenge and start the timer. Are you sure you want to proceed?
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="blue darken-1" text @click="showStartDialog = false">Cancel</v-btn>
+                        <v-btn color="blue darken-1" text @click="confirmStartChallenge">Start</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
 
             <v-card v-if="showInstructions">
                 <v-card-title>Challenge Instructions</v-card-title>
@@ -97,6 +111,7 @@ export default {
             challengeNumber: 1, // This would be dynamically set based on the current day
             challengeTitle: 'Fix the Broken Web Server',
             showInstructions: false,
+            showStartDialog: false,
             upcomingChallenges: [
                 {
                     number: 2,
@@ -130,10 +145,12 @@ export default {
         };
     },
     methods: {
-        startChallenge() {
+        confirmStartChallenge() {
+            this.showStartDialog = false;
             this.showInstructions = true;
             // Here you would typically implement the logic to connect with a teammate
             console.log('Connecting with a teammate...');
+            // Add logic to start the timer here
         },
     },
 };
