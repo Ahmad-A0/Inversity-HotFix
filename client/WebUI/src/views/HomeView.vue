@@ -1,5 +1,62 @@
 <script setup lang="ts">
 import BaseLayoutScrollable from '@/components/layouts/BaseLayoutScrollable.vue';
+import { ref } from 'vue';
+
+const challengeNumber = ref(1);
+const challengeTitle = ref('Fix the Broken Web Server');
+const showInstructions = ref(false);
+const showStartDialog = ref(false);
+const sessionLink = ref('');
+
+const upcomingChallenges = [
+    {
+        number: 2,
+        title: 'Secure the Database',
+        releaseDate: '2024-08-20',
+    },
+    {
+        number: 3,
+        title: 'Optimize Network Performance',
+        releaseDate: '2024-08-21',
+    },
+];
+
+const leaderboardHeaders = [
+    { text: 'Rank', value: 'rank' },
+    { text: 'Team', value: 'team' },
+    { text: 'Score', value: 'score' },
+    { text: 'Time', value: 'time' },
+];
+
+const leaderboardItems = [
+    { rank: 1, team: 'ByteBusters', score: 1000, time: '1:23:45' },
+    { rank: 2, team: 'CodeCrusaders', score: 950, time: '1:25:30' },
+    { rank: 3, team: 'HackHeroes', score: 900, time: '1:28:15' },
+    { rank: 4, team: 'CyberChampions', score: 850, time: '1:30:00' },
+    { rank: 5, team: 'TechTitans', score: 800, time: '1:32:45' },
+];
+
+const confirmStartChallenge = async () => {
+    showStartDialog.value = false;
+    try {
+        const response = await fetch('/api/start-challenge', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ challengeNumber: challengeNumber.value }),
+        });
+        const data = await response.json();
+        if (data.link) {
+            sessionLink.value = data.link;
+            showInstructions.value = true;
+        } else {
+            console.error('No session link received');
+        }
+    } catch (error) {
+        console.error('Error starting challenge:', error);
+    }
+};
 </script>
 
 <template>
@@ -47,23 +104,25 @@ import BaseLayoutScrollable from '@/components/layouts/BaseLayoutScrollable.vue'
                     </p>
                     <ol>
                         <li>
-                            SSH into the challenge machine using the credentials
-                            below:
+                            Click the link below to start your challenge session:
                         </li>
-                        <pre>ssh user@challenge.example.com -p 2222</pre>
+                        <v-btn
+                            color="primary"
+                            :href="sessionLink"
+                            target="_blank"
+                            class="mb-4"
+                        >
+                            Start Challenge Session
+                        </v-btn>
                         <li>
-                            Once connected, navigate to the challenge directory:
-                        </li>
-                        <pre>cd /home/user/challenge</pre>
-                        <li>
-                            Investigate the issue and fix it within the time
-                            limit.
+                            Once connected, follow the instructions provided in the challenge environment.
                         </li>
                         <li>
-                            Submit your solution by running the verification
-                            script:
+                            Investigate the issue and fix it within the time limit.
                         </li>
-                        <pre>./verify_solution.sh</pre>
+                        <li>
+                            Submit your solution using the method specified in the challenge environment.
+                        </li>
                     </ol>
                 </v-card-text>
             </v-card>
@@ -102,56 +161,3 @@ import BaseLayoutScrollable from '@/components/layouts/BaseLayoutScrollable.vue'
         </v-sheet>
     </BaseLayoutScrollable>
 </template>
-
-<script lang="ts">
-export default {
-    name: 'HomeView',
-    data() {
-        return {
-            challengeNumber: 1, // This would be dynamically set based on the current day
-            challengeTitle: 'Fix the Broken Web Server',
-            showInstructions: false,
-            showStartDialog: false,
-            upcomingChallenges: [
-                {
-                    number: 2,
-                    title: 'Secure the Database',
-                    releaseDate: '2024-08-20',
-                },
-                {
-                    number: 3,
-                    title: 'Optimize Network Performance',
-                    releaseDate: '2024-08-21',
-                },
-            ],
-            leaderboardHeaders: [
-                { text: 'Rank', value: 'rank' },
-                { text: 'Team', value: 'team' },
-                { text: 'Score', value: 'score' },
-                { text: 'Time', value: 'time' },
-            ],
-            leaderboardItems: [
-                { rank: 1, team: 'ByteBusters', score: 1000, time: '1:23:45' },
-                { rank: 2, team: 'CodeCrusaders', score: 950, time: '1:25:30' },
-                { rank: 3, team: 'HackHeroes', score: 900, time: '1:28:15' },
-                {
-                    rank: 4,
-                    team: 'CyberChampions',
-                    score: 850,
-                    time: '1:30:00',
-                },
-                { rank: 5, team: 'TechTitans', score: 800, time: '1:32:45' },
-            ],
-        };
-    },
-    methods: {
-        confirmStartChallenge() {
-            this.showStartDialog = false;
-            this.showInstructions = true;
-            // Here you would typically implement the logic to connect with a teammate
-            console.log('Connecting with a teammate...');
-            // Add logic to start the timer here
-        },
-    },
-};
-</script>
