@@ -12,16 +12,21 @@ const showInstructions = ref(false);
 const showStartDialog = ref(false);
 const sessionLink = ref('');
 
+// Set date to next week, formatted as yyyy-mm-dd
 const upcomingChallenges = [
     {
         number: 4,
-        title: 'Secure the Database',
-        releaseDate: '2024-08-20',
+        title: 'WannaSigh Ransomware',
+        releaseDate: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split('T')[0],
     },
     {
         number: 5,
-        title: 'Optimize Network Performance',
-        releaseDate: '2024-08-21',
+        title: 'GitGaffe DDoS attack',
+        releaseDate: new Date(new Date().getTime() + 14 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split('T')[0],
     },
 ];
 
@@ -51,10 +56,31 @@ const uuidv4 = () => {
     );
 };
 
+function fetchWithTimeout(url: string, options, timeout = 60000) {
+  const controller = new AbortController();
+  const signal = controller.signal;
+
+  const timeoutId = setTimeout(() => {
+    controller.abort();
+  }, timeout);
+
+  return fetch(url, { ...options, signal })
+    .then((response) => {
+      clearTimeout(timeoutId);
+      return response;
+    })
+    .catch((error) => {
+      if (error.name === 'AbortError') {
+        throw new Error(`Timeout error: Request timed out after ${timeout}ms`);
+      }
+      throw error;
+    });
+}
+
 const confirmStartChallenge = async () => {
     showStartDialog.value = false;
     try {
-        const response = await fetch('/api/select', {
+        const response = await fetchWithTimeout('/api/select', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -63,7 +89,7 @@ const confirmStartChallenge = async () => {
                 challenge: `challenge${selectedChallenge.value.number}`,
                 instance_id: uuidv4(),
             }),
-        });
+        }, 300000);
         const data = await response.json();
         if (data.link) {
             sessionLink.value = data.link;
@@ -82,7 +108,9 @@ const confirmStartChallenge = async () => {
         <v-sheet class="ma-sm pa-sm d-flex flex-column gap-sm">
             <v-card color="background" class="style-card">
                 <v-card-text>
-                    <h1 class="style-card__title">Inversity <span class="hotfix">HotFix</span></h1>
+                    <h1 class="style-card__title">
+                        Inversity HotFix
+                    </h1>
                 </v-card-text>
             </v-card>
             <!-- <h1>Inversity HotFix</h1> -->
@@ -154,9 +182,9 @@ const confirmStartChallenge = async () => {
                             color="primary"
                             :href="sessionLink"
                             target="_blank"
-                            class="mb-4"
+                            class="m-4"
                         >
-                            Start Challenge Session
+                            Enter Challenge Session
                         </v-btn>
                         <li>
                             Once connected, follow the instructions provided in
@@ -209,49 +237,47 @@ const confirmStartChallenge = async () => {
     </BaseLayoutScrollable>
 </template>
 
-
 <style scoped lang="scss">
 .style-card {
-  background-image: linear-gradient(to right, $theme-primary, $theme-secondary, $theme-tertiary);
+    background-image: linear-gradient(
+        to right,
+        $theme-primary,
+        $theme-secondary,
+        $theme-tertiary
+    );
 
-  &__title {
-    color: $theme-background;
-    font-size: 2rem;
-  }
-
-  p {
-    color: $theme-background;
-  }
-
-  .hotfix {
-    font-size: 2.1rem;
-    // font-weight: bold;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    display: inline-block;
-    padding: 0 10px;
-    animation: glow 1.5s infinite alternate;
-  }
-
-  @keyframes glow {
-    from {
-      text-shadow: 
-        0 0 5px red,
-        0 0 10px red,
-        0 0 15px red,
-        // 0 0 20px red,
-        // 0 0 35px orange,
-        // 0 0 40px orange,
+    &__title {
+        color: $theme-background;
+        font-size: 2rem;
     }
-    to {
-      text-shadow: 
-        0 0 10px orange,
-        0 0 20px orange,
-        0 0 30px orange,
-        // 0 0 40px orange,
-        // 0 0 70px orange,
-        // 0 0 80px orange,
+
+    p {
+        color: $theme-background;
     }
-  }
+
+    .hotfix {
+        font-size: 2.1rem;
+        // font-weight: bold;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        display: inline-block;
+        padding: 0 10px;
+        animation: glow 1.5s infinite alternate;
+    }
+
+    @keyframes glow {
+        from {
+            text-shadow: 0 0 5px red, 0 0 10px red, 0 0 15px red;
+            // 0 0 20px red,
+            // 0 0 35px orange,
+            // 0 0 40px orange,
+        }
+        to {
+            text-shadow: 0 0 10px orange, 0 0 20px orange, 0 0 30px orange;
+            // 0 0 40px orange,
+            // 0 0 70px orange,
+            // 0 0 80px orange,
+        }
+    }
 }
 </style>

@@ -92,8 +92,8 @@ def select_challenge():
 
         link = find_link(output)
         tries = 0
-        while not link and tries < 40:
-            sleep(0.5)
+        while not link and tries < 80:
+            sleep(0.25)
             output = challenge_container.logs(stdout=True, stderr=True).decode("utf-8")
             link = find_link(output)
             tries += 1

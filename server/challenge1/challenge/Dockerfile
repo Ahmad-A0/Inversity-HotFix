@@ -14,4 +14,5 @@ RUN chmod +x /bin/hey
 WORKDIR /root
 
 # Run the command to get and run the script from sshx.io
-CMD ["sh", "-c", "curl -sSf https://sshx.io/get | sh -s run"]
+RUN curl -sSf https://sshx.io/get | sh
+CMD ["sshx"]
