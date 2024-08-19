@@ -13,3 +13,13 @@ services:
     environment:
       - FLASK_ENV=development
     command: python -u app.py
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    volumes:
+      - ./client:/app
+    command: sh -c "docker-compose -f /app/docker-compose.yaml up"
+    depends_on:
+      - server
