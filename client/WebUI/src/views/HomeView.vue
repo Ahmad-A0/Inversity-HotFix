@@ -19,44 +19,17 @@ import BaseLayoutScrollable from '@/components/layouts/BaseLayoutScrollable.vue'
                 </v-card-text>
                 <v-card-actions>
                     <v-btn color="primary" @click="startChallenge"
-                        >Start Challenge</v-btn
+                        >Start Challenge with Teammate</v-btn
                     >
                 </v-card-actions>
-            </v-card>
-
-            <v-card class="mb-5">
-                <v-card-title>Upcoming Challenges</v-card-title>
-                <v-card-text>
-                    <v-list>
-                        <v-list-item v-for="challenge in upcomingChallenges" :key="challenge.number">
-                            <v-list-item-title>
-                                Challenge #{{ challenge.number }}: {{ challenge.title }}
-                            </v-list-item-title>
-                            <v-list-item-subtitle>
-                                Release Date: {{ challenge.releaseDate }}
-                            </v-list-item-subtitle>
-                        </v-list-item>
-                    </v-list>
-                </v-card-text>
-            </v-card>
-
-            <v-card class="mb-5">
-                <v-card-title>Leaderboard</v-card-title>
-                <v-card-text>
-                    <v-data-table
-                        :headers="leaderboardHeaders"
-                        :items="leaderboardItems"
-                        :items-per-page="5"
-                        class="elevation-1"
-                    ></v-data-table>
-                </v-card-text>
             </v-card>
 
             <v-card v-if="showInstructions">
                 <v-card-title>Challenge Instructions</v-card-title>
                 <v-card-text>
                     <p class="mb-4">
-                        This is a team challenge! You'll be paired with a teammate to solve the problem together.
+                        This is a team challenge! You'll be paired with a
+                        teammate to solve the problem together.
                     </p>
                     <ol>
                         <li>
@@ -80,6 +53,38 @@ import BaseLayoutScrollable from '@/components/layouts/BaseLayoutScrollable.vue'
                     </ol>
                 </v-card-text>
             </v-card>
+
+            <v-card class="mb-5">
+                <v-card-title>Upcoming Challenges</v-card-title>
+                <v-card-text>
+                    <v-list>
+                        <v-list-item
+                            v-for="challenge in upcomingChallenges"
+                            :key="challenge.number"
+                        >
+                            <v-list-item-title>
+                                Challenge #{{ challenge.number }}:
+                                {{ challenge.title }}
+                            </v-list-item-title>
+                            <v-list-item-subtitle>
+                                Release Date: {{ challenge.releaseDate }}
+                            </v-list-item-subtitle>
+                        </v-list-item>
+                    </v-list>
+                </v-card-text>
+            </v-card>
+
+            <v-card class="mb-5">
+                <v-card-title>Leaderboard</v-card-title>
+                <v-card-text>
+                    <v-data-table
+                        :headers="leaderboardHeaders"
+                        :items="leaderboardItems"
+                        :items-per-page="5"
+                        class="elevation-1"
+                    ></v-data-table>
+                </v-card-text>
+            </v-card>
         </v-sheet>
     </BaseLayoutScrollable>
 </template>
@@ -93,8 +98,16 @@ export default {
             challengeTitle: 'Fix the Broken Web Server',
             showInstructions: false,
             upcomingChallenges: [
-                { number: 2, title: 'Secure the Database', releaseDate: '2024-08-20' },
-                { number: 3, title: 'Optimize Network Performance', releaseDate: '2024-08-21' },
+                {
+                    number: 2,
+                    title: 'Secure the Database',
+                    releaseDate: '2024-08-20',
+                },
+                {
+                    number: 3,
+                    title: 'Optimize Network Performance',
+                    releaseDate: '2024-08-21',
+                },
             ],
             leaderboardHeaders: [
                 { text: 'Rank', value: 'rank' },
@@ -106,7 +119,12 @@ export default {
                 { rank: 1, team: 'ByteBusters', score: 1000, time: '1:23:45' },
                 { rank: 2, team: 'CodeCrusaders', score: 950, time: '1:25:30' },
                 { rank: 3, team: 'HackHeroes', score: 900, time: '1:28:15' },
-                { rank: 4, team: 'CyberChampions', score: 850, time: '1:30:00' },
+                {
+                    rank: 4,
+                    team: 'CyberChampions',
+                    score: 850,
+                    time: '1:30:00',
+                },
                 { rank: 5, team: 'TechTitans', score: 800, time: '1:32:45' },
             ],
         };
