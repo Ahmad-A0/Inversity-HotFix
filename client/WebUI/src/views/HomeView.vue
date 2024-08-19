@@ -2,8 +2,12 @@
 import BaseLayoutScrollable from '@/components/layouts/BaseLayoutScrollable.vue';
 import { ref } from 'vue';
 
-const challengeNumber = ref(1);
-const challengeTitle = ref('Fix the Broken Web Server');
+const challenges = ref([
+    { number: 1, title: 'Fix the Broken Web Server' },
+    { number: 2, title: 'Secure the File System' },
+    { number: 3, title: 'Debug the Logging System' }
+]);
+const selectedChallenge = ref(challenges.value[0]);
 const showInstructions = ref(false);
 const showStartDialog = ref(false);
 const sessionLink = ref('');
@@ -48,7 +52,6 @@ const uuidv4 = () => {
 };
 
 const confirmStartChallenge = async () => {
-    // curl -X POST -H "Content-Type: application/json" -d '{"challenge": "challenge2", "instance_id": "'$(shuf -i 1000-9999 -n 1)'"}' http://127.0.0.1:5000/select
     showStartDialog.value = false;
     try {
         const response = await fetch('/api/start-challenge', {
@@ -57,7 +60,7 @@ const confirmStartChallenge = async () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                challenge: 'challenge2',
+                challenge: `challenge${selectedChallenge.value.number}`,
                 instance_id: uuidv4(),
             }),
         });
@@ -79,14 +82,21 @@ const confirmStartChallenge = async () => {
         <v-sheet class="ma-sm pa-sm d-flex flex-column gap-sm">
             <h1>Daily CTF Challenge</h1>
             <v-card class="mb-5" color="background">
-                <v-card-title>Today's Challenge</v-card-title>
+                <v-card-title>Available Challenges</v-card-title>
                 <v-card-text>
                     <p>
-                        A new challenge is released every day at midnight UTC.
-                        Work with your teammate to solve the issue!
+                        Select a challenge and work with your teammate to solve the issue!
                     </p>
+                    <v-select
+                        v-model="selectedChallenge"
+                        :items="challenges"
+                        item-title="title"
+                        item-value="number"
+                        return-object
+                        label="Select a challenge"
+                    ></v-select>
                     <v-alert type="info" class="mt-3">
-                        Challenge #{{ challengeNumber }}: {{ challengeTitle }}
+                        Challenge #{{ selectedChallenge.number }}: {{ selectedChallenge.title }}
                     </v-alert>
                 </v-card-text>
                 <v-card-actions>
