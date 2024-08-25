@@ -1,4 +1,4 @@
-## Inversity Hotfix
+## Inversity ️‍🔥 Hotfix
 
 This was my submission for the Inversity LearnerTakeover Challenge, it's a CTF style challenge where you and a teamate restore broken VMs after an outage/zero-day.
 
